@@ -1,0 +1,23 @@
+#declare document is php
+<?php
+
+#open mysql dbase named demo on the localhost using root as user name and root as password
+$link = mysqli_connect("localhost", "root", "root", "demo");
+ 
+#if the link to the demo dbase fails, print "Error: Could not connect. " and show the error given from mysqli 
+if($link === false){
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
+#add row into demo dbase for first_name, last_name, and email_address using the values Wormy, VonWormenstein, and email@email.com and assign $sql to insert command
+$sql = "INSERT INTO persons (first_name, last_name, email_address) VALUES ('Wormy', 'VonWormenstein', 'email@email.com')";
+
+#if add record is successful print "Records added successfully." otherwise print "Error: Could not able to execute $sql." and show mysql error.
+if(mysqli_query($link, $sql)){
+    echo "Records added successfully.";
+} else{
+    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+}
+
+#close link to demo dbase
+mysqli_close($link);
+?>
